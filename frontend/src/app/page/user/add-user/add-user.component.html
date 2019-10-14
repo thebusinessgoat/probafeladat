@@ -1,0 +1,55 @@
+<mat-card>
+    <mat-card-title align='center'>
+        <mat-card *ngIf='errorMsg'>
+            <mat-card-subtitle *ngIf='errorMsg' align='center'>
+                <div [ngClass]="{'error': errorMsg }">{{errorMsg}}</div>
+            </mat-card-subtitle>
+        </mat-card>
+        <div class="title-header">Add User : {{addUserForm.controls['name'].value}}</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+
+    <mat-card-content>
+        <form [formGroup] = 'addUserForm'>
+            <mat-card>
+                <mat-card-content>
+                    <mat-grid-list cols=2 rowHeight='195px'>
+                        <mat-grid-tile>
+                            <div class='controls container'>
+                                <mat-form-field>
+                                    <mat-icon  matPrefix>account_circle</mat-icon>
+                                    <input matInput type='text' formControlName='username' placeholder='Username' required>
+                                    <mat-error *ngIf="addUserForm.controls['username'].errors?.required">Username is required.</mat-error>
+                                    <mat-error *ngIf="addUserForm.controls['username'].errors?.minlegth">Username must be at least 5 characters.</mat-error>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <input matInput type='text' formControlName='name' placeholder='Name' required>
+                                    <mat-error *ngIf="addUserForm.controls['name'].errors?.required">Name is required.</mat-error>
+                                    <mat-error *ngIf="addUserForm.controls['name'].errors?.minlegth">Name must be at least 5 characters.</mat-error>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-icon  matPrefix>https</mat-icon>
+                                    <input matInput type='password' formControlName='password' placeholder='Password' required>
+                                    <mat-error *ngIf="addUserForm.controls['password'].errors?.required">Password is required.</mat-error>
+                                    <mat-error *ngIf="addUserForm.controls['password'].errors?.minlegth">Password must be at least 5 characters.</mat-error>
+                                </mat-form-field>     
+                            </div>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </mat-card-content>
+            </mat-card>
+        </form>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-footer align ='right'>
+        <a mat-raised-button color='warn' (click)='onCancel()'>
+            <mat-icon>cancel_presentation</mat-icon>
+            Cancel
+        </a>
+        &nbsp;
+        <button mat-raised-button color='accent' [disabled]='addUserForm.invalid' (click)='addUser()'>
+            <mat-icon>person_add</mat-icon>
+            Add User
+        </button>
+    </mat-card-footer>
+</mat-card>

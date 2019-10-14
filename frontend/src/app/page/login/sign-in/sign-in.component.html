@@ -1,0 +1,46 @@
+<mat-card>
+    <mat-card-title align='center'>
+        <mat-card *ngIf='authSvc.errorMsg || errorMsg'>
+            <mat-card-subtitle *ngIf='authSvc.errorMsg || errorMsg' align='center' >
+                <div [ngClass]="{'error': authSvc.errorMsg }">{{authSvc.errorMsg}}</div>
+            </mat-card-subtitle>
+            <mat-card-subtitle *ngIf='errorMsg' align='center'>
+                <div [ngClass]="{'error': errorMsg }">{{errorMsg}}</div>
+            </mat-card-subtitle>
+        </mat-card>
+        <div class="title-header">Login</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+
+    <mat-card-content>
+        <form [formGroup]='loginForm'>
+        <mat-card>
+            <mat-card-content>
+                <mat-grid-list cols='1' rowHeight='115px'>
+                    <mat-grid-tile>
+                        <div class='controls-container'>
+                                <mat-form-field>
+                                    <mat-icon  matPrefix>account_circle</mat-icon>
+                                    <input matInput type='text' formControlName='username' placeholder='Username' required>
+                                    <mat-error *ngIf="loginForm.controls['username'].errors?.required">Username is required.</mat-error>
+                                    <mat-error *ngIf="loginForm.controls['username'].errors?.minlegth">Username must be at least 5 characters.</mat-error>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-icon  matPrefix>https</mat-icon>
+                                    <input matInput type='password' formControlName='password' placeholder='Password' required>
+                                    <mat-error *ngIf="loginForm.controls['password'].errors?.required">Password is required.</mat-error>
+                                    <mat-error *ngIf="loginForm.controls['password'].errors?.minlegth">Password must be at least 5 characters.</mat-error>
+                                </mat-form-field>                           
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card-content>
+        </mat-card>
+     </form>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-footer align='right'>
+        <button mat-raised-button color="primary" [disabled]='loginForm.invalid' (click)='onLogin()'>Login</button>
+        &nbsp;
+    </mat-card-footer>
+</mat-card>
